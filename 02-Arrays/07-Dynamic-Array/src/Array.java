@@ -103,7 +103,10 @@ public class Array<E> {
         size --;
         data[size] = null; // loitering objects != memory leak
 
-        if (size == data.length / 2) {
+        // 复杂度震荡，出现问题的原因：removeLast时resize过于着急（Eager）
+        // 解决方案：Lazy
+        // 当size == capacity / 4时，才将capacity减半
+        if (size == data.length / 4 && data.length / 2 != 0) {
             resize(data.length / 2);
         }
         return ret;
