@@ -51,8 +51,31 @@ public class LinkedList<E> {
         size ++;
     }
 
+    // 在链表的index(0-based)位置添加新的元素e
+    // 在链表中不是一个常用的操作，练习用：）
     public void add(int index, E e) {
-        
+        if (index < 0 || index > size) {
+            throw new IllegalArgumentException("Add failed. Illegal index.");
+        }
+
+        if (index == 0) {
+            addFirst(e);
+        } else {
+            // prev默认为head
+            Node prev = head;
+            // 循环遍历找到prev（链表index位置的前一个Node）
+            for (int i = 0; i < index - 1; i++) {
+                prev = prev.next;
+            }
+
+//            Node node = new Node(e);
+//            node.next = prev.next;
+//            prev.next = node;
+
+            prev.next = new Node(e, prev.next);
+            size ++;
+        }
+
     }
 
 }
